@@ -11,7 +11,7 @@ export async function commandDeploy({ distDir = 'dist' }) {
 
   const client = new S3Client({
     region: 'auto',
-    endpoint: `https://${process.env.R2_ACCOUNT_ID}.r2.cloudflarestorage.com`,
+    endpoint: `https://${process.env.CLOUDFLARE_ACCOUNT_ID}.r2.cloudflarestorage.com`,
     credentials: {
       accessKeyId: process.env.R2_ACCESS_KEY_ID,
       secretAccessKey: process.env.R2_SECRET_ACCESS_KEY
@@ -38,6 +38,16 @@ export async function commandDeploy({ distDir = 'dist' }) {
   }
 
   await Promise.allSettled(filesPromises);
+
+  const kvEndpoint = `${process.env.KV_API_URL}/accounts/${process.env.CLOUDFLARE_ACCOUNT_ID}/storage/kv/namespaces/${process.env.KV_NAMESPACE}/values/${process.env.PROJECT_NAME}`;
+
+  await fetch(kvEndpoint, {
+    method: 'PUT',
+    headers: {
+      Authorization: `Bearer ${process.env.KV_AUTH_TOKEN}`
+    },
+    body: version
+  });
 
   return version;
 }
