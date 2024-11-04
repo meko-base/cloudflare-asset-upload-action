@@ -8,7 +8,8 @@ try {
     console.log('Starting deploy...');
 
     const version = await commandDeploy({
-      distDir: core.getInput('dist')
+      projectName: core.getInput('project_name'),
+      distDir: core.getInput('dist_dir')
     });
 
     core.setOutput('version', version);
