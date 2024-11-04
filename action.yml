@@ -8,5 +8,5 @@ outputs:
   version:
     description: 'The generated version for your assets'
 runs:
-  using: 'node22'
+  using: 'node20'
   main: 'dist/index.js'
