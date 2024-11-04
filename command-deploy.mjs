@@ -9,6 +9,8 @@ export async function commandDeploy({ distDir = 'dist' }) {
   const distGlob = `${distDir}/**/*`;
   const version = Math.floor(Date.now() / 1000);
 
+  console.log({ version });
+
   const client = new S3Client({
     region: 'auto',
     endpoint: `https://${process.env.CLOUDFLARE_ACCOUNT_ID}.r2.cloudflarestorage.com`,
@@ -20,6 +22,9 @@ export async function commandDeploy({ distDir = 'dist' }) {
 
   const files = await glob(distGlob, { nodir: true });
   const filesPromises = [];
+
+  console.log({ files });
+  console.log(process.env.PROJECT_NAME, process.env.CLOUDFLARE_ACCOUNT_ID);
 
   for (const file of files) {
     const fileName = file.slice(distDir.length + 1);
@@ -40,6 +45,8 @@ export async function commandDeploy({ distDir = 'dist' }) {
   await Promise.allSettled(filesPromises);
 
   const kvEndpoint = `${process.env.KV_API_URL}/accounts/${process.env.CLOUDFLARE_ACCOUNT_ID}/storage/kv/namespaces/${process.env.KV_NAMESPACE}/values/${process.env.PROJECT_NAME}`;
+
+  console.log({ kvEndpoint });
 
   await fetch(kvEndpoint, {
     method: 'PUT',
