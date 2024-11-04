@@ -7,7 +7,7 @@ inputs:
     description: ''
 outputs:
   version:
-    description: 'The generated version for your assets'
+    description: 'The generated version of your assets'
 runs:
   using: 'node20'
   main: 'dist/index.mjs'
