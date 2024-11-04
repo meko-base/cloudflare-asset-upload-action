@@ -1,7 +1,6 @@
 {
-  "type": "module",
   "scripts": {
-    "build": "ncc build index.js"
+    "build": "ncc build index.mjs"
   },
   "dependencies": {
     "@actions/core": "^1.11.1",

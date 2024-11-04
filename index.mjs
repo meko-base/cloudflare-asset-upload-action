@@ -1,5 +1,5 @@
-import { commandDeploy } from './command-deploy.js';
-import { commandRollback } from './command-rollback.js';
+import { commandDeploy } from './command-deploy.mjs';
+import { commandRollback } from './command-rollback.mjs';
 
 import core from '@actions/core';
 
