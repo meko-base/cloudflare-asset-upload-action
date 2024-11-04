@@ -58,5 +58,3 @@ export async function commandDeploy({ distDir = 'dist' }) {
 
   return version;
 }
-
-commandDeploy({ distDir: 'test_dist/' });
