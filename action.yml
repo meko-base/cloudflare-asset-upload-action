@@ -10,4 +10,4 @@ outputs:
     description: 'The generated version for your assets'
 runs:
   using: 'node20'
-  main: 'dist/index.js'
+  main: 'dist/index.mjs'
