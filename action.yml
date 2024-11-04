@@ -1,9 +1,10 @@
 name: 'Cloudflare asset upload action'
 description: 'A github action that provides functions which make publishing new assets easier.'
 inputs:
-  command:
-    description: 'The argument to define what this action should do'
-    required: true
+  deploy:
+    description: ''
+  dist_dir:
+    description: ''
 outputs:
   version:
     description: 'The generated version for your assets'
