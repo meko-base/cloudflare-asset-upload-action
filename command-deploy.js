@@ -5,7 +5,7 @@ import { glob } from 'glob';
 import { MimeType } from 'mime-type';
 import mimeDb from 'mime-db';
 
-export async function commandDeploy({ projectName, distDir = 'dist/' }) {
+export async function commandDeploy({ distDir = 'dist' }) {
   const distGlob = `${distDir}/**/*`;
   const version = Math.floor(Date.now() / 1000);
 
@@ -22,10 +22,10 @@ export async function commandDeploy({ projectName, distDir = 'dist/' }) {
   const filesPromises = [];
 
   for (const file of files) {
-    const fileName = file.slice(distDir.length);
+    const fileName = file.slice(distDir.length + 1);
     const fileContent = await fs.readFile(file);
     const mimeType = new MimeType(mimeDb).lookup(path.extname(file)) || 'text/plain; charset=utf-8';
-    const objectKey = `${projectName}/${version}/${fileName}`;
+    const objectKey = `${process.env.PROJECT_NAME}/${version}/${fileName}`;
 
     const putObjectCommand = new PutObjectCommand({
       Bucket: process.env.R2_BUCKET,
@@ -42,4 +42,4 @@ export async function commandDeploy({ projectName, distDir = 'dist/' }) {
   return version;
 }
 
-commandDeploy({ projectName: 'sandbox', distDir: 'test_dist/' });
+commandDeploy({ distDir: 'test_dist/' });
