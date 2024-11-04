@@ -1,0 +1,13 @@
+{
+  "scripts": {
+    "build": "ncc build index.js"
+  },
+  "dependencies": {
+    "@actions/core": "^1.11.1",
+    "@aws-sdk/client-s3": "^3.685.0",
+    "@vercel/ncc": "^0.38.2",
+    "glob": "^11.0.0",
+    "mime-db": "^1.53.0",
+    "mime-type": "^5.0.0"
+  }
+}
